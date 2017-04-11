@@ -1,6 +1,6 @@
 import os
 
-from chaining.util import MatrixChain
+from chaining.util import MatrixChain,read_config
 from chaining.strategies import performHeuristics
 
 #exampleChain = [7,8,9,10,11]
@@ -12,7 +12,8 @@ from chaining.strategies import performHeuristics
 #matChain = MatrixChain(5)
 
 def main():
-	results = performHeuristics()
+	conf = read_config('conf.txt')
+	results = performHeuristics(conf)
 	for result in results:
 		result.printNormalResults()
 

@@ -1,13 +1,13 @@
 from util import MatrixChain,ExperimentResult
 
 
-def performHeuristics():
-	global_low = 7
-	global_high = 17
+def performHeuristics(conf):
+	LOW = int(conf['LOW'])
+	HIGH = int(conf['HIGH'])
 	# set stuff
-	lengths_to_test = [10,15,20,25]
+	lengths_to_test = conf['LENGTHS_TO_TEST'].split(',')
 	lengths_results = []
-	reps_to_do = 30
+	reps_to_do = int(conf['REPETITIONS'])
 
 	# get all strats in order
 	all_strats = get_all_strategies()
@@ -15,11 +15,12 @@ def performHeuristics():
 
 	# set current iteration
 	for curr_length in lengths_to_test:
+		curr_length = int(curr_length)
 		# create a result for this length and name it
 		results = ExperimentResult(str(curr_length))
 		for rep in range(reps_to_do):
 			# create matrix chain to perform test
-			matrixChain = MatrixChain(curr_length)
+			matrixChain = MatrixChain(curr_length,low=LOW,high=HIGH)
 			for strat in all_strats:
 				results[strat[1]] = strat[0](matrixChain)
 			results.performCalcAndClear()

@@ -1,5 +1,26 @@
 import random
 import copy
+import os
+
+# get location of main directory
+__location__ = os.path.realpath(
+	os.path.join(os.getcwd(), os.path.dirname(__file__)))  # directory from which this script is ran
+main_dir = os.path.realpath(os.path.join(__location__,'..'))
+
+
+def read_config(filename):
+	c_dict = {}
+	with open(os.path.join(main_dir,filename),"rb") as conf:
+		for line in conf:
+			try:
+				key,val = line.strip().split('=')
+				key = key.strip()
+				val = val.strip()
+				c_dict[key] = val
+			except Exception,e:
+				pass
+	return c_dict
+
 
 
 class ExperimentResult(object):
