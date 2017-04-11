@@ -12,7 +12,6 @@ def performHeuristics(conf):
 	# get all strats in order
 	all_strats = get_all_strategies()
 
-
 	# set current iteration
 	for curr_length in lengths_to_test:
 		curr_length = int(curr_length)
@@ -28,6 +27,23 @@ def performHeuristics(conf):
 		lengths_results.append(results)
 				
 	return lengths_results
+
+def performHeuristicsMANUAL(conf):
+	# get all strats in order
+	all_strats = get_all_strategies()
+
+	# create matrix chain to perform test
+	matrixChain = MatrixChain()
+	matrixChain.setChain(conf['DIM_LIST'])
+
+	results = ExperimentResult(str(len(matrixChain)-1))
+
+	for strat in all_strats:
+		results[strat[1]] = strat[0](matrixChain)
+	results.performCalcAndClear()
+	# return result
+	return [results]
+	
 
 
 # returns list containing all strat functions
